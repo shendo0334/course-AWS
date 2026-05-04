@@ -10,11 +10,11 @@ REGION = os.environ.get("AWS_REGION", "ap-south-2")
 dynamodb = boto3.resource("dynamodb", region_name=REGION)
 courses_table = dynamodb.Table("abhinand-Courses")
 
-@app.route("/health")
+@app.route("/abhinand-cloud/health")
 def health():
     return jsonify({"status": "ok", "service": "course-service"}), 200
 
-@app.route("/courses", methods=["POST"])
+@app.route("/abhinand-cloud/courses", methods=["POST"])
 def add_course():
     try:
         data = request.get_json()
@@ -41,7 +41,7 @@ def add_course():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-@app.route("/courses/<course_code>", methods=["GET"])
+@app.route("/abhinand-cloud/courses/<course_code>", methods=["GET"])
 def get_course(course_code):
     try:
         resp = courses_table.get_item(Key={"id": course_code})
@@ -52,7 +52,7 @@ def get_course(course_code):
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-@app.route("/courses", methods=["GET"])
+@app.route("/abhinand-cloud/courses", methods=["GET"])
 def list_courses():
     try:
         resp = courses_table.scan(Limit=50)
