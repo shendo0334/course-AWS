@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 REGION = os.environ.get("AWS_REGION", "ap-south-2")
 
-dynamodb = boto3.resource("dynamodb", region_name=REGION)
+dynamodb = boto3.resource("dynamodb", region_name="ap-south-2")
 courses_table = dynamodb.Table("abhinand-pipe")
 
 @app.route("/abhinand-cloud/health")
